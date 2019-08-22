@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - src_dir: src
+    - work_dir: work
+
+  tasks:
+    - name: install groonga-release
+      yum: name=http://packages.groonga.org/centos/groonga-release-1.4.0-1.noarch.rpm state=present
+
+    - name: install mysql-community-release-el7-7
+      yum: name=http://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm state=present
+
+    - name: install yum-utils
+      yum: name=yum-utils state=latest
+
+    - name: disable mysql56-community
+      command: yum-config-manager --disable mysql56-community
+
+    - name: enable mysql57-community
+      command: yum-config-manager --enable mysql57-community
+
+    - name: make chache
+      command: yum makecache
+
+    - name: install mysql57-community-mroonga
+      yum: name=mysql57-community-mroonga state=present disable_gpg_check=yes
+
+    # Ruby on Rail で使うためにに devel も入れておく
+    - name: install mysql-community-devel
+      yum: name=mysql-community-devel state=latest
+
+    - name: start mysql and enabled
+      service: name=mysqld state=started enabled=yes
+
+    - name: install groonga-tokenizer-mecab
+      yum: name={{item}} enablerepo=epel,mysql57-community disablerepo=mysql56-community state=present disable_gpg_check=yes
+      with_items:
+        - groonga-tokenizer-mecab
+
+  handlers:

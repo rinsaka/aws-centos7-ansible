@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - ruby_version: 2.3.1
+    - python_version: 3.5.2
+    - src_dir: src
+    - work_dir: work
+
+  tasks:
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+    - name: Disabled SELinux
+      selinux:
+        state: disabled
+    - name: remove localtime
+      file: path=/etc/localtime state=absent
+    - name: change timezone
+      file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes mode=0644
+    - name: install ntp
+      yum: name=ntp state=latest
+    - name: change /etc/adjtime
+      replace: >-
+        dest='/etc/adjtime'
+        regexp='LOCAL'
+        replace='UTC'
+    - name: install man
+      yum: name=man state=latest
+    - name: install patch   # mecab-ipadic-neologd のインストールに必要
+      yum: name=patch state=latest
+    - name: install unzip   # laravel のプロジェクト生成に必要
+      yum: name=unzip state=latest
+  handlers:
