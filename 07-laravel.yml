@@ -7,29 +7,29 @@
 
   tasks:
     - name: create documents directory
-      file: path=/home/vagrant/Documents state=directory owner=vagrant group=vagrant mode=0700
+      file: path=/home/centos/Documents state=directory owner=centos group=centos mode=0700
       become: no
 
     - name: create documents/laravel directory
-      file: path=/home/vagrant/Documents/laravel state=directory owner=vagrant group=vagrant mode=0700
+      file: path=/home/centos/Documents/laravel state=directory owner=centos group=centos mode=0700
       become: no
 
     - name: download composer
       command: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
       args:
-         chdir: /home/vagrant/Documents/laravel/
+         chdir: /home/centos/Documents/laravel/
       become: no
 
     - name: setup composer
       command: php composer-setup.php
       args:
-        chdir: /home/vagrant/Documents/laravel/
+        chdir: /home/centos/Documents/laravel/
       become: no
 
     - name: unlink composer-setup
       command: php -r "unlink('composer-setup.php');"
       args:
-        chdir: /home/vagrant/Documents/laravel/
+        chdir: /home/centos/Documents/laravel/
       become: no
 
   handlers:

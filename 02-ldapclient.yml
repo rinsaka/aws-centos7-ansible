@@ -29,7 +29,7 @@
       become: yes
 
     - name: create /home/public directory
-      file: path=/home/public state=directory owner=vagrant group=vagrant mode=0755
+      file: path=/home/public state=directory owner=centos group=centos mode=0755
       become: yes
 
   handlers:

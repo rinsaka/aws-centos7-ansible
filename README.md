@@ -1,5 +1,5 @@
 # What's This?
-- インストールされた直後のCentOS 7 (centos7vagrantfile) に，Python, PHP, Laravel, MySQL-Mroonga, Mecab などを自動的にインストールすることができます．
+- Amazon Web Services の EC2 で起動した CentOS7 インスタンス (CentOS 7 (x86_64) - with Updates HVM) に，Python, PHP, Laravel, MySQL-Mroonga, Mecab などを自動的にインストールすることができます．
 
 # 設定方法
 

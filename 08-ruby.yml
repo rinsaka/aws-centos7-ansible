@@ -35,33 +35,33 @@
         - bison
 
     - name: check rbenv installed
-      command: test -x /home/vagrant/.rbenv
+      command: test -x /home/centos/.rbenv
       register: rbenv_present
       become: no
       failed_when: rbenv_present.rc not in [0, 1]
     - name: git clone rbenv
-      git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
+      git: repo=https://github.com/sstephenson/rbenv.git dest=/home/centos/.rbenv
       when: rbenv_present.rc == 1
       become: no
     - name: update bash_profile
-      copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
+      copy: src=bash_profile.custom dest=/home/centos/.bash_profile backup=yes
       become: no
 
     - name: check ruby-build installed
-      command: test -x /home/vagrant/.rbenv/plugins/ruby-build
+      command: test -x /home/centos/.rbenv/plugins/ruby-build
       register: rbuild_present
       become: no
       failed_when: rbuild_present.rc not in [0, 1]
     - name: git clone ruby-build
-      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
+      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/centos/.rbenv/plugins/ruby-build
       when: rbuild_present.rc == 1
       become: no
 
     - name: update rbenv
-      command: git pull --rebase chdir=/home/vagrant/.rbenv
+      command: git pull --rebase chdir=/home/centos/.rbenv
       become: no
     - name: update ruby-build
-      command: git pull --rebase chdir=/home/vagrant/.rbenv/plugins/ruby-build
+      command: git pull --rebase chdir=/home/centos/.rbenv/plugins/ruby-build
       become: no
 
     - name: check ruby installed
@@ -75,30 +75,30 @@
       become: no
 
     - name: check pyenv installed
-      command: test -x /home/vagrant/.pyenv
+      command: test -x /home/centos/.pyenv
       register: pyenv_present
       become: no
       failed_when: pyenv_present.rc not in [0, 1]
     - name: git clone pyenv
-      git: repo=https://github.com/yyuu/pyenv.git dest=/home/vagrant/.pyenv
+      git: repo=https://github.com/yyuu/pyenv.git dest=/home/centos/.pyenv
       when: pyenv_present.rc == 1
       become: no
 
     - name: check pyvirtual installed
-      command: test -x /home/vagrant/.pyenv/plugins/pyenv-virtualenv
+      command: test -x /home/centos/.pyenv/plugins/pyenv-virtualenv
       register: pyvirtual_present
       become: no
       failed_when: pyvirtual_present.rc not in [0, 1]
     - name: git clone pyenv-virtual
-      git: repo=https://github.com/yyuu/pyenv-virtualenv.git dest=/home/vagrant/.pyenv/plugins/pyenv-virtualenv
+      git: repo=https://github.com/yyuu/pyenv-virtualenv.git dest=/home/centos/.pyenv/plugins/pyenv-virtualenv
       when: pyvirtual_present.rc == 1
       become: no
 
     - name: update pyenv
-      command: git pull --rebase chdir=/home/vagrant/.pyenv
+      command: git pull --rebase chdir=/home/centos/.pyenv
       become: no
     - name: update pyenv-virtualenv
-      command: git pull --rebase chdir=/home/vagrant/.pyenv/plugins/pyenv-virtualenv
+      command: git pull --rebase chdir=/home/centos/.pyenv/plugins/pyenv-virtualenv
       become: no
 
     - name: check python installed
